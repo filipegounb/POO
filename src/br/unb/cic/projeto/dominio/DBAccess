@@ -1,0 +1,37 @@
+package dbAccess;
+
+import java.sql.*;
+import java.util.*;
+
+public class DBConnect{
+			
+	public static void main(String arg[]){
+		System.out.println("Tentando conectar ao MySQL...");
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://localhost:3306/mysql";
+		String usuario = "root";
+		String senha = "";		
+		Connection con = DriverManager.getConnection(url,usuario,senha);
+		System.out.println("URL:"+url);
+		System.out.println("Conecção:"+con);
+		Statement stmt = con.createStatement();
+		ResultSet rs;
+		rs = stmt.executeQuery("SELECT * FROM mydb.Funcionarios");
+		System.out.println("Buscando informações...");
+//		stmt.executeUpdate("INSERT ");
+		do{
+			String nome = rs.getString("Nome");
+			System.out.print(nome+", ");
+			}
+		while(rs.next());
+		con.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	System.out.println("Programa encerrado!");
+	}
+	
+
+}
